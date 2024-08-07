@@ -59,41 +59,21 @@ Forms.ActionForm(player, options);
 
 ```javascript
 async function example2(player) {
-    await Forms.ModalForm(player, {
-        title: 'test',
-        interactables: [
-            {
-                type: 'textField',
-                text: 'example text field',
-                placeholder: 'placeholder', // optional
-                default: 'default text' // optional
-            },
-            {
-                type: 'slider',
-                text: 'example slider label',
-                min: 0,
-                max: 100,
-                default: 0, // optional
-                numStep: 10 // optional
-            },
-            {
-                type: 'toggle',
-                text: 'example toggle label',
-                default: false // optional
-            },
-            {
-                type: 'dropdown',
-                text: 'example dropdown label',
-                options: ['option 1', 'option 2']
-            }
-        ],
-        actions: [
-            (val) => player.sendMessage(`text field: ${val}`),
-            (val) => player.sendMessage(`slider num: ${val}`),
-            (val) => player.sendMessage(`toggle switch: ${val}`),
-            (val) => player.sendMessage(`dropdown option: ${val}`)
-        ]
-    });
+  await Forms.ModalForm(player, {
+    title: 'Test',
+    interactables: [
+      { type: 'textField', text: 'Field', placeholder: 'Placeholder', default: 'Default' },
+      { type: 'slider', text: 'Slider', min: 0, max: 100, default: 0, numStep: 10 },
+      { type: 'toggle', text: 'Toggle', default: false },
+      { type: 'dropdown', text: 'Dropdown', options: ['Option 1', 'Option 2'] }
+    ],
+    actions: [
+      (val) => player.sendMessage(`Text field: ${val}`),
+      (val) => player.sendMessage(`Slider: ${val}`),
+      (val) => player.sendMessage(`Toggle: ${val}`),
+      (val) => player.sendMessage(`Dropdown: ${val}`)
+    ]
+  });
 }
 ```
 
