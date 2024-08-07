@@ -2,23 +2,38 @@
 
 ## Overview
 
-This script defines a `Forms` class with a static `ActionForm` method for creating and displaying an action form in Minecraft Bedrock Edition using a hypothetical `ActionFormData` API. This method provides a way to present a form to the player with buttons and corresponding actions.
+This script defines a `Forms` class with static methods for creating and displaying various types of forms in Minecraft Bedrock Edition using hypothetical APIs (`ActionFormData` and `ModalFormData`). These methods provide ways to present different forms to the player with buttons, sliders, toggles, text fields, and dropdowns.
 
 ## How It Works
+
+### `Forms.ActionForm`
 
 The `ActionForm` method takes two arguments:
 1. `player`: The player to whom the form will be shown.
 2. `options`: An object containing the form's title, body, buttons, and actions.
 
-### Options Object
+#### Options Object
 
 - `title` (string, optional): The title of the form.
 - `body` (string, optional): The body text of the form.
 - `buttons` (array, required): An array of button objects, each with a `text` property and an optional `texture` property.
 - `actions` (array, required): An array of functions corresponding to the actions to be taken when each button is pressed.
 
+### `Forms.ModalForm`
+
+The `ModalForm` method takes two arguments:
+1. `player`: The player to whom the form will be shown.
+2. `options`: An object containing the form's title, interactables, and actions.
+
+#### Options Object
+
+- `title` (string, optional): The title of the form.
+- `interactables` (array, required): An array of interactable objects, each with a `type` property and corresponding properties for that type.
+- `actions` (array, required): An array of functions corresponding to the actions to be taken based on the interactable inputs.
+
 ### Example Usage
 
+#### Action Form
 
 ```javascript
 import { Forms } from './extensions/Forms';
@@ -40,6 +55,47 @@ const options = {
 // Show the form to a player
 Forms.ActionForm(player, options);
 ```
+#### Modal Form
+
+```javascript
+async function example2(player) {
+    await Forms.ModalForm(player, {
+        title: 'test',
+        interactables: [
+            {
+                type: 'textField',
+                text: 'example text field',
+                placeholder: 'placeholder', // optional
+                default: 'default text' // optional
+            },
+            {
+                type: 'slider',
+                text: 'example slider label',
+                min: 0,
+                max: 100,
+                default: 0, // optional
+                numStep: 10 // optional
+            },
+            {
+                type: 'toggle',
+                text: 'example toggle label',
+                default: false // optional
+            },
+            {
+                type: 'dropdown',
+                text: 'example dropdown label',
+                options: ['option 1', 'option 2']
+            }
+        ],
+        actions: [
+            (val) => player.sendMessage(`text field: ${val}`),
+            (val) => player.sendMessage(`slider num: ${val}`),
+            (val) => player.sendMessage(`toggle switch: ${val}`),
+            (val) => player.sendMessage(`dropdown option: ${val}`)
+        ]
+    });
+}
+```
 
 ### Error Handling
 
@@ -48,7 +104,7 @@ Forms.ActionForm(player, options);
 
 ## Requirements
 
-- Ensure you have the `ActionFormData` API available in your environment.
+- Ensure you have the `ActionFormData` and `ModalFormData` APIs available in your environment.
 - The player object must be valid and capable of receiving a form.
 
 ### Dependencies
@@ -58,7 +114,7 @@ None specified. This script assumes you have access to the necessary game APIs a
 ### Installation
 
 1. Copy the `Forms` class script into your project.
-2. Import and use the `Forms.ActionForm` method as demonstrated in the example usage.
+2. Import and use the `Forms` methods as demonstrated in the example usage.
 
 ## Contributing
 
@@ -67,10 +123,3 @@ If you would like to contribute to this project, please fork the repository and 
 ## License
 
 This project is licensed under the MIT License.
-
-
-### Completion
-- [x] ActionFormData
-- [ ] ModalFormData
-- [ ] MessageFormData
-- [ ] IngameConfiguration
