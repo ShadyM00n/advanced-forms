@@ -2,43 +2,24 @@
 
 ## Overview
 
-This script defines a `Forms` class with static methods for creating and displaying various types of forms in Minecraft Bedrock Edition using hypothetical APIs (`ActionFormData` and `ModalFormData`). These methods provide ways to present different forms to the player with buttons, sliders, toggles, text fields, and dropdowns.
+This script defines a `Forms` class with static methods for creating and displaying different types of forms in Minecraft Bedrock Edition. The available methods include `ActionForm`, `ModalForm`, and `MessageForm`.
 
 ## How It Works
 
-### `Forms.ActionForm`
+### ActionForm
 
-The `ActionForm` method takes two arguments:
-1. `player`: The player to whom the form will be shown.
-2. `options`: An object containing the form's title, body, buttons, and actions.
+The `ActionForm` method creates and displays an action form with buttons and corresponding actions. 
 
-#### Options Object
+**Options Object:**
 
 - `title` (string, optional): The title of the form.
 - `body` (string, optional): The body text of the form.
 - `buttons` (array, required): An array of button objects, each with a `text` property and an optional `texture` property.
 - `actions` (array, required): An array of functions corresponding to the actions to be taken when each button is pressed.
 
-### `Forms.ModalForm`
+**Example Usage:**
 
-The `ModalForm` method takes two arguments:
-1. `player`: The player to whom the form will be shown.
-2. `options`: An object containing the form's title, interactables, and actions.
-
-#### Options Object
-
-- `title` (string, optional): The title of the form.
-- `interactables` (array, required): An array of interactable objects, each with a `type` property and corresponding properties for that type.
-- `actions` (array, required): An array of functions corresponding to the actions to be taken based on the interactable inputs.
-
-### Example Usage
-
-#### Action Form
-
-```javascript
-import { Forms } from './extensions/Forms';
-
-// Define options for the action form
+```js
 const options = {
   title: 'Sample Title',
   body: 'Sample Body Text',
@@ -52,14 +33,24 @@ const options = {
   ]
 };
 
-// Show the form to a player
 Forms.ActionForm(player, options);
 ```
-#### Modal Form
+***
 
-```javascript
-async function example2(player) {
-  await Forms.ModalForm(player, {
+### ModalForm
+
+The `ModalForm` method creates and displays a modal form with various interactables including text fields, sliders, toggles, and dropdowns.
+
+**Options Object:**
+
+- `title` (string, optional): The title of the form.
+- `interactables` (array, required): An array of interactable objects specifying the type and properties of each interactable.
+- `actions` (array, required): An array of functions corresponding to the actions to be taken with the form values.
+
+**Example Usage:**
+
+```js
+  const options = {
     title: 'Test',
     interactables: [
       { type: 'textField', text: 'Field', placeholder: 'Placeholder', default: 'Default' },
@@ -73,25 +64,57 @@ async function example2(player) {
       (val) => player.sendMessage(`Toggle: ${val}`),
       (val) => player.sendMessage(`Dropdown: ${val}`)
     ]
-  });
-}
+  }
+
+await Forms.ModalForm(player, options);
+```
+***
+
+### MessageForm
+
+The `MessageForm` method creates and displays a form with buttons that trigger messages.
+
+**Options Object:**
+
+- `title` (string, optional): The title of the form.
+- `body` (string, optional): The body text of the form.
+- `buttons` (array, required): An array of button objects, each with a `text` property.
+- `actions` (array, required): An array of functions to be executed when each button is pressed.
+
+**Example Usage:**
+
+```js
+const options = {
+  title: 'test',
+  body: 'test',
+  buttons: [
+    { text: 'button 1' },
+    { text: 'button 2' }
+  ],
+  actions: [
+    () => player.sendMessage('Button 1'),
+    () => player.sendMessage('Button 2')
+  ]
+};
+
+Forms.MessageForm(player, options);
 ```
 
-### Error Handling
+## Error Handling
 
 - If any button in the `buttons` array is not an object or lacks a `text` property, an error will be thrown.
 - If an action corresponding to a button press is not a function, a warning will be logged to the console.
 
 ## Requirements
 
-- Ensure you have the `ActionFormData` and `ModalFormData` APIs available in your environment.
+- Ensure you have the `ActionFormData`, `ModalFormData`, and `MessageFormData` APIs available in your environment.
 - The player object must be valid and capable of receiving a form.
 
-### Dependencies
+## Dependencies
 
 None specified. This script assumes you have access to the necessary game APIs and objects.
 
-### Installation
+## Installation
 
 1. Copy the `Forms` class script into your project.
 2. Import and use the `Forms` methods as demonstrated in the example usage.
@@ -104,8 +127,9 @@ If you would like to contribute to this project, please fork the repository and 
 
 This project is licensed under the MIT License.
 
+- [Link to script](https://github.com/ShadyM00n/advanced-forms/tree/main)
+
 ### Completion
 - [x] ActionFormData
 - [x] ModalFormData
-- [ ] MessageFormData
-
+- [x] MessageFormData
