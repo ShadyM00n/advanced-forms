@@ -81,4 +81,24 @@ export class Forms {
         console.error(`Failed to show modal form: ${error}`);
       });
     }
+    
+    static async MessageForm (player, options) {
+      const { title = '', body = '', buttons = [], actions = [] } = options;
+      const ui = new MessageFormData()
+      ui.title(title);
+      ui.body(body);
+      ui.button1(buttons[0].text);
+      ui.button2(buttons[1].text);
+    return ui.show(player).then(response => {
+        if (response.canceled) return;
+      if (!actions[response.selection]) return;
+        if (typeof actions[response.selection] === 'function') {
+          actions[response.selection]();
+        } else {
+          console.warn(`Action at index ${response.selection} is not a function`);
+        }
+      });
+
+    }
+
   }
