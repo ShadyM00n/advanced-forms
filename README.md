@@ -127,7 +127,7 @@ If you would like to contribute to this project, please fork the repository and 
 
 This project is licensed under the MIT License.
 
-- [Link to script](https://github.com/ShadyM00n/advanced-forms/tree/main)
+- [Link to Discord]((https://discord.gg/HsXYjrkPvC))
 
 ### Completion
 - [x] ActionFormData
